@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .services import book_passage_service, fetch_satellite_data, get_passages, fetch_available_passes
+from .services import fetch_satellite_data, get_passages
 
 def satellite_info_view(request):
     """View for fetching satellite data."""
