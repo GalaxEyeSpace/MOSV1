@@ -18,7 +18,7 @@ class TaskCommandSerializer(serializers.ModelSerializer):
         model = TaskCommand
         fields = [
             'id', 'execution_id', 'time_offset', 'parameters',
-            'command_id', 'duration', # or 'command' if you want read-only nested
+            'command_id', # or 'command' if you want read-only nested
         ]
 
     def create(self, validated_data):
@@ -36,7 +36,7 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = [
             'id', 'task_id', 'priority', 'category', 'status',
-            'time_slots', 'task_commands', 'duration',
+            'time_slots', 'task_commands',
         ]
 
     def create(self, validated_data):

@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Velocity, Storage, Power, Position, Omega, Attitude, AttErr
 from .filters import TimeRangeFilter
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 # Mapping table names to Django model classes
 MODEL_MAPPING = {
@@ -18,6 +20,38 @@ MODEL_MAPPING = {
     "atterr": AttErr,
 }
 
+@swagger_auto_schema(
+    method='get',
+    manual_parameters=[
+        openapi.Parameter(
+            'table',
+            openapi.IN_QUERY,
+            description="Name of the table (velocity, storage, etc.)",
+            type=openapi.TYPE_STRING,
+            required=True
+        ),
+        openapi.Parameter(
+            'start_time',
+            openapi.IN_QUERY,
+            description="Start of time range in ISO format (UTC). Example: 2023-02-01T00:00:00Z",
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_DATETIME,  # <-- Tells Swagger this is date-time
+            required=False
+        ),
+        openapi.Parameter(
+            'end_time',
+            openapi.IN_QUERY,
+            description="End of time range in ISO format (UTC). Example: 2025-02-10T23:59:59Z",
+            type=openapi.TYPE_STRING,
+            format=openapi.FORMAT_DATETIME,  # <-- Tells Swagger this is date-time
+            required=False
+        ),
+    ],
+    responses={
+        200: openapi.Response(description="List of matching records or empty list"),
+        400: openapi.Response(description="Missing/invalid parameters"),
+    }
+)
 @api_view(["GET"])
 def get_tm_data(request):
     """
