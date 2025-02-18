@@ -33,6 +33,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'telemetry',
+    'Utility',
+    'rest_framework',
+    'taskmanager',
+    'schedulemanager',
 ]
 
 MIDDLEWARE = [
