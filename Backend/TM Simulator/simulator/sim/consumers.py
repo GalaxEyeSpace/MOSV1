@@ -70,6 +70,9 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
         "storage": True,
         "power": True,
         "position": True,
+        "omega": True, 
+        "attitude": True,
+        "attErr": True, 
     }
 
     async def connect(self):
@@ -87,9 +90,10 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
             print("Connected to MOS WebSocket!")
             while True:
                 telemetry_data = self.generate_fake_data()
-                print(f"Sending telemetry data: {telemetry_data}")  # Log the data you're sending
+                print(f"Sending telemetry data", telemetry_data)  # Log the data you're sending
                 await websocket.send(json.dumps(telemetry_data))
                 await asyncio.sleep(5)
+                print("Telemetry Sent")
 
     async def receive(self, text_data):
         """Handle messages from WebSocket client (if needed)."""
@@ -111,21 +115,21 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
 
     def generate_fake_data(self):
         """Generate random telemetry data with current timestamp."""
-        print("Generating fake data...")  # Debug statement
+        print("Generating data...")  # Debug statement
         current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Format to match your request
         
         data = {}
 
         if self.enabled_telemetry["velocity"]:
             data["velocity"] = {
-                "timestamp": current_time,
+                "timestep": current_time,
                 "x": random.uniform(-10, 10),
                 "y": random.uniform(-10, 10),
                 "z": random.uniform(-10, 10),
             }
         if self.enabled_telemetry["storage"]:
             data["storage"] = {
-                "timestamp": current_time,
+                "timestep": current_time,
                 "instant_data_gen": random.randint(0, 100),
                 "instant_data_down": random.randint(0, 100),
                 "ssd_storage": random.randint(100, 1000),
@@ -133,19 +137,40 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
             }
         if self.enabled_telemetry["power"]:
             data["power"] = {
-                "timestamp": current_time,
+                "timestep": current_time,
                 "net_power": random.uniform(0, 100),
                 "solar": random.uniform(0, 50),
                 "storage": random.uniform(0, 50),
             }
         if self.enabled_telemetry["position"]:
             data["position"] = {
-                "timestamp": current_time,
+                "timestep": current_time,
                 "x": random.uniform(-100, 100),
                 "y": random.uniform(-100, 100),
                 "z": random.uniform(-100, 100),
             }
-        print(f"Generated data: {data}")  # Debug print
+        if self.enabled_telemetry["attErr"]:
+            data["attErr"] = {
+                "timestep": current_time,
+                "x": random.uniform(-10, 10),
+                "y": random.uniform(-10, 10),
+                "z": random.uniform(-10, 10),
+            }
+        if self.enabled_telemetry["omega"]:
+            data["omega"] = {
+                "timestep": current_time,
+                "x": random.uniform(-10, 10),
+                "y": random.uniform(-10, 10),
+                "z": random.uniform(-10, 10),
+            }
+        if self.enabled_telemetry["attitude"]:
+            data["attitude"] = {
+                "timestep": current_time,
+                "roll": random.uniform(-10, 10),
+                "pitch": random.uniform(-10, 10),
+                "yaw": random.uniform(-10, 10),
+            }
+        # print(f"Generated data: {data}")  # Debug print
         return data
     
 # Server
