@@ -4,21 +4,21 @@ Mission Operation Software is a rapidly developed project built from scratch in 
 
 ## Overview
 
-This project is being developed with a lean approach. For more details, see the [requirements](#).
+This project is being developed with a lean approach. For more details, see the [[requirements](https://github.com/users/rushil-13/projects/1)requirements](#).
 
 ## Architecture
 
 ### Lean Approach
 
-![Lean Approach][./Media/UntitledDiagram.drawio.png]
+![Lean Approach](Media/UntitledDiagram.drawio.png)
 
 ### System Architecture
 
-![System Architecture][def]
+![System Architecture](Media/V_1_Architecture-V4.jpg)
 
 ### Detailed Architecture
 
-![Detailed Architecture][def]
+![System Architecture](Media/V_1_Architecture-V3.jpg)![Detailed Architecture][def]
 
 ## Backend
 
@@ -40,5 +40,3 @@ The frontend is a single project consisting of 6-7 dashboards developed using Re
 4. **Start the React application.**
 
 Happy coding!
-
-[def]: attach_photo
