@@ -73,7 +73,7 @@ ASGI_APPLICATION = "mos.asgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'mysqlite3.db',
     }
 }
 
