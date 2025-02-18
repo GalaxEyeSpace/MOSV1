@@ -17,3 +17,5 @@
    console.log("Telemetry Data Received:", JSON.parse(event.data));
    };
    ````
+7. To toggle different telemetries ON/OFF type - toggle_velocity, toggle_storage, toggle_power, toggle_position
+8. The generated telemetry is directly stored in DBs in MOS
