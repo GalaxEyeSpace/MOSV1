@@ -1,0 +1,16 @@
+/* TMArchiveSystem/styles/playbackControls.css */
+.playback-container {
+    width: 100%;
+    padding: 10px;
+    background: #1e1e1e;
+    border: 1px solid #1e1e1e;
+    border-radius: 5px;
+    text-align: center;
+  }
+  button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+  }
+  

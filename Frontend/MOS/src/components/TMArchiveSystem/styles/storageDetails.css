@@ -1,0 +1,10 @@
+/* TMArchiveSystem/styles/storageDetails.css */
+.storage-container {
+    width: 100%;
+    padding: 10px;
+    background: #1e1e1e;
+    border: 1px solid #1e1e1e;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  

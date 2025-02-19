@@ -1,0 +1,9 @@
+/* TMArchiveSystem/styles/missionDetails.css */
+.mission-container {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background: #e0e0e0;
+    font-weight: bold;
+  }
+  
