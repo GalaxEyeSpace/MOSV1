@@ -1,0 +1,9 @@
+/* TMArchiveSystem/styles/velocityDetails.css */
+.velocity-container {
+    width: 100%;
+    padding: 10px;
+    background: #1e1e1e;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
