@@ -128,7 +128,7 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
         # Extract power data
         power_data = data.get('power', {})
         if power_data:
-            timestep = power_data.get('timestamp')
+            timestep = power_data.get('timestep')
             net_power = power_data.get('net_power')
             solar = power_data.get('solar')
             storage = power_data.get('storage')
