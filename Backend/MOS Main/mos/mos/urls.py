@@ -11,6 +11,8 @@ swagger_urlpatterns = [
     path('api/task-planner/', include('taskmanager.urls')),
     path('api/schedule-planner/', include('schedulemanager.urls')),
     path('telemetry/', include('telemetry.urls')),
+    path('leaf/', include('leaf.urls')),
+    path('mqtt/', include('realtimecommanding.urls')),
     # ^^^ only these two sets of endpoints => only these two models
 ]
 
