@@ -21,6 +21,15 @@ EXTERNAL_API_SETTINGS = {
     'TOKEN_URL': 'https://apiv2.sandbox.leaf.space/oauth2/token',
 }
 
+MQTT_BROKER = {
+    "HOST": "mqtt-sandbox.leaf.space",
+    "PORT": 8883,  # Change to 8883 for SSL if required
+    "USERNAME": "galaxeye01",
+    "PASSWORD": "ZfaPl6d4ogxDKx1mdzJ4qFNe5xSNj3Y3",
+    "PUBLISH_TOPIC": "loopback/galaxeye01/uplink",
+    "SUBSCRIBE_TOPIC": "loopback/galaxeye01/downlink"
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +48,8 @@ INSTALLED_APPS = [
     'schedulemanager',
     'django_filters',
     'drf_yasg',
+    'realtimecommanding',
+    'leaf'
 ]
 
 MIDDLEWARE = [

@@ -33,6 +33,7 @@ urlpatterns = [
     path('api/utility/', include('Utility.urls')),
     path('api/task-planner/', include('taskmanager.urls')),
     path('api/schedule-planner/', include('schedulemanager.urls')),
+    path('mqtt/', include('realtimecommanding.urls')), 
 
     # Swagger and Redoc Endpoints:
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',

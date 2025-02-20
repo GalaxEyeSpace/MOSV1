@@ -19,6 +19,7 @@ incremental==24.7.2
 inflection==0.5.1
 numpy==2.2.3
 packaging==24.2
+paho-mqtt==2.1.0
 pyasn1==0.6.1
 pyasn1_modules==0.4.1
 pycparser==2.22
@@ -27,9 +28,9 @@ pytz==2025.1
 PyYAML==6.0.2
 requests==2.32.3
 service-identity==24.2.0
+setuptools==75.8.0
 sgp4==2.24
 sqlparse==0.5.3
-tomli==2.2.1
 Twisted==24.11.0
 txaio==23.1.1
 typing_extensions==4.12.2
