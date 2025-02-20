@@ -9,7 +9,6 @@ import TMRealAstro from "./components/TMRealAstro/pages/TMRealAstro";
 import TMArchiveAstro from "./components/TMArchiveAstro/pages/TMArchiveAstro";
 import Rtc from "./components/RTC/pages/Rtc";
 import RTCMonitorwall from "./components/MonitorWall/pages/RTCMonitorwall";
-
 import Schedular from "./components/Scheduler/Schedular";
 
 function App() {

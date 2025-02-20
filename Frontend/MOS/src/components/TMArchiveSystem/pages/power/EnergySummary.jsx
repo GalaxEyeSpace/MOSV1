@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import "../../styles/power/energySummary.css"
 
 const EnergySummary = () => {
   const [summary, setSummary] = useState(null);

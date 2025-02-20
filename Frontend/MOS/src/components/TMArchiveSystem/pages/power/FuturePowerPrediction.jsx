@@ -1,6 +1,3 @@
-// TMArchiveSystem/pages/power/FuturePowerPrediction.js
-
-
 import React, { useEffect, useState } from "react";
 import {
   LineChart,

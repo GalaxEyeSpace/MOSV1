@@ -4,7 +4,7 @@ body, html {
   padding: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #121212; /* Dark background */
+  background-color: #000000 !important; /* Dark background */
   display: flex;
 }
 
@@ -21,7 +21,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white; /* Text color */
+  color: rgb(17, 17, 17); /* Text color */
   box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
   overflow: hidden; /* Prevents overflow issues */
 }
@@ -32,11 +32,10 @@ body, html {
   height: 100%; /* Ensure the graph takes full height */
 }
 
-
 /* 📦 Container for Storage Graph */
 .telemetry1-container {
   width: 450px;  /* Same width as Solar */
-  height: 280px; /* Same height */
+  height: 420px; /* Same height */
   background-color: #1e1e1e; /* Darker container */
   border: 2px solid #255434; /* Blue border for differentiation */
   border-radius: 10px;
@@ -58,7 +57,7 @@ body, html {
 }
 .telemetry2-container {
   width: 350px;  /* Same width as Solar */
-  height: 280px; /* Same height */
+  height: 420px; /* Same height */
   background-color: #1e1e1e; /* Darker container */
   border: 2px solid #255434; /* Blue border for differentiation */
   border-radius: 10px;
@@ -85,7 +84,7 @@ body, html {
  /* Added padding to prevent cut-off */
   overflow: hidden; /* Ensures content stays inside */
   position: absolute;
-  top: 775px;  /* ✅ Move below the first container */
+  top: 840px;  /* ✅ Move below the first container */
   left: 10px;  /* ✅ Align with the first container */
 }
 .telemetry4-container {
@@ -101,7 +100,7 @@ body, html {
  /* Added padding to prevent cut-off */
   overflow: hidden; /* Ensures content stays inside */
   position: absolute;
-  top: 860px;  /* ✅ Move below the first container */
+  top: 920px;  /* ✅ Move below the first container */
   left: 10px;  /* ✅ Align with the first container */
 }
 /* ✅ Power Telemetry Title (Fixed Position at the Top) */

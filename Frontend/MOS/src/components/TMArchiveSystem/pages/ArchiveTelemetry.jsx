@@ -1,13 +1,6 @@
 // TMArchiveSystem/pages/ArchiveTelemetry.js
 import React from "react";
-import MissionDetails from "./MissionDetails";
-import PowerDetails from "./PowerDetails";
-import StorageDetails from "./StorageDetails";
-import VelocityDetails from "./VelocityDetails";
-import PositionsDetails from "./PositionDetails";
-import OmegaDetails from "./OmegaDetails";
-import ADCSDetails from "./ADCSDetails";
-import "../styles/archiveTelemetry.css";
+import "../styles/archivetelemetry.css";
 import SolarVsConsumedGraph from "./power/SolarVsConsumedGraph";
 import StorageUsage from "./power/StorageUsage";
 import EnergySummary from "./power/EnergySummary";
@@ -21,7 +14,6 @@ import Temperature from "./Temperature";
 const ArchiveTelemetry = () => {
   return (
      <>
-    <h3 className="power-telemetry-title">Power Telemetry</h3>
      <div className="telemetry-container">
        <SolarVsConsumedGraph />
       </div>
@@ -32,7 +24,6 @@ const ArchiveTelemetry = () => {
        <EnergySummary />
       </div>
       <div className="telemetry3-container">
-        <h5>Power Efficiency</h5>
        <PowerEfficiency />
       </div>
       <div className="telemetry4-container">
