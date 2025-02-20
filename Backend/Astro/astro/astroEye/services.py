@@ -113,63 +113,6 @@ def multistep_propagation(request_body):
     return results
 
 def resource_estimation(request_body):
-<<<<<<< HEAD
-    print("Processing request body:", request_body)
-
-    # ✅ Parse JSON correctly
-    if isinstance(request_body, str):  
-        data = json.loads(request_body)
-    else:
-        data = request_body
-
-    print("Extracted data:", data)
-
-    current_resources = data.get("initial_resources", {})
-    command_list = data.get("command_ids", [])
-
-    resources_over_time = []
-
-    for command_index, command_id in enumerate(command_list):
-        print(f"Processing Command ID {command_id}")
-
-        # Fetch from the database instead of dictionary
-        try:
-            task_resources = CommandResource.objects.get(command_id=command_id)
-        except CommandResource.DoesNotExist:
-            return {
-                "status": "failure",
-                "error": f"Invalid Command ID: {command_id}"
-            }
-
-        power_required = task_resources.power
-        storage_required = task_resources.storage
-
-        # Check if resources are sufficient
-        if current_resources["power"] >= power_required and current_resources["storage"] >= storage_required:
-            current_resources["power"] -= power_required
-            current_resources["storage"] -= storage_required
-
-            resources_over_time.append({
-                "command_index": command_index + 1,
-                "command_id": command_id,
-                "remaining_power": current_resources["power"],
-                "remaining_storage": current_resources["storage"],
-            })
-        else:
-            insufficient_resource = "power" if current_resources["power"] < power_required else "storage"
-            remaining_resource = current_resources[insufficient_resource]
-
-            return {
-                "status": "failure",
-                "failed_command": command_id,
-                "insufficient_resource": insufficient_resource,
-                "required": getattr(task_resources, insufficient_resource),
-                "remaining": remaining_resource,
-                "remaining_resources": current_resources,
-                "resources_over_time": resources_over_time
-            }
-
-=======
 
     command_lookup = {
     "CMD001": {"power": 50, "storage": 100},  # Command ID CMD001 requires 50W power and 100MB storage
@@ -245,7 +188,6 @@ def resource_estimation(request_body):
             }
 
     # If all commands are executed successfully, return the resources utilized
->>>>>>> d858510 (AstroServer RE functionality added, fetching CMD set)
     return {
         "status": "success",
         "resources_over_time": resources_over_time,

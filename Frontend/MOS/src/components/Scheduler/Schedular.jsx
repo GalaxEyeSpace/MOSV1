@@ -19,7 +19,7 @@ import ItemPopup from './ItemPopup';
 
 const Schedular = () => {
   const timelineRef = useRef(null);
-
+  
   // React states
   const [items, setItems] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);

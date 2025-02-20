@@ -77,7 +77,7 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
         "gpsTemp": True,
         "obcTemp": True
     }
-
+    
     async def connect(self):
         await self.accept()
         # We can safely start listening for terminal input in a background task
@@ -115,14 +115,14 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
             if key in self.enabled_telemetry:
                 self.enabled_telemetry[key] = not self.enabled_telemetry[key]
                 print(f"{key} telemetry is now {'ON' if self.enabled_telemetry[key] else 'OFF'}")
-
+    
     def generate_fake_data(self):
         """Generate random telemetry data with current timestamp."""
         print("Generating data...")  # Debug statement
         current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Format to match your request
         
         data = {}
-
+        
         if self.enabled_telemetry["velocity"]:
             data["velocity"] = {
                 "timestep": current_time,

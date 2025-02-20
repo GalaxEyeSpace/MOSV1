@@ -1,47 +1,53 @@
-// TMArchiveSystem/pages/power/SolarVsConsumedGraph.js
-import React, { useEffect, useRef } from "react";
-import { DataSet, Timeline } from "vis-timeline/standalone";
-import "vis-timeline/styles/vis-timeline-graph2d.min.css";
-<<<<<<< HEAD
-//import "../styles/power/solarVsConsumed.css";
-=======
-import "../styles/power/solarVsConsumed.css";
->>>>>>> rush
+import React, { useEffect, useState } from "react";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
-const SolarVsConsumedGraph = ({ data }) => {
-  const graphRef = useRef(null);
+const SolarVsConsumedGraph = () => {
+  const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
-    if (!data || data.length === 0) return;
-
-    // Prepare Vis.js Data
-    const dataset = new DataSet(
-      data.map((entry) => ({
-        x: new Date(entry.timestamp),
-        y: entry.power_consumed,
-        group: "Power Consumed",
-      }))
-    );
-
-    // Define Graph Options
-    const options = {
-      start: new Date(data[0].timestamp),
-      end: new Date(data[data.length - 1].timestamp),
-      showCurrentTime: false,
-      width: "100%",
-      height: "100%",
-      drawPoints: true,
-      style: "line",
-    };
-
-    // Create Graph
-    new Timeline(graphRef.current, dataset, options);
-  }, [data]);
+    fetch("http://localhost:8000/telemetry/get-data/?table=power&start_time=2024-12-05T09:50:59.000Z&end_time=2024-12-05T10:40:58.000Z")
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const formattedData = data.map((item) => ({
+            timestamp: new Date(item.timestep).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            solar: parseFloat(item.solar),
+            power_consumed: parseFloat(item.power_consumed),
+          }));
+          setGraphData(formattedData);
+        } else {
+          console.error("Unexpected API response format:", data);
+        }
+      })
+      .catch(error => console.error("Error fetching telemetry data:", error));
+  }, []);
 
   return (
-    <div className="solar-graph-container">
-      <h3>📈 Solar vs. Consumed Power</h3>
-      <div ref={graphRef} className="vis-container"></div>
+    <div className="graph-wrapper" style={{ width: "100%", height: "100%" }}>
+      {graphData.length > 0 ? (
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={graphData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+            <XAxis dataKey="timestamp" tick={{ fontSize: 10, fill: "white" }} />
+            <YAxis tick={{ fontSize: 20, fill: "white" }} />
+            <CartesianGrid stroke="#444" strokeDasharray="5 5" />
+            <Tooltip contentStyle={{ backgroundColor: "#222", color: "white" }} />
+            <Legend wrapperStyle={{ fontSize: "12px" }} />
+            <Line type="monotone" dataKey="solar" stroke="yellow" dot={{ r: 1 }} />
+            <Line type="monotone" dataKey="power_consumed" stroke="red" dot={{ r: 1 }} />
+          </LineChart>
+        </ResponsiveContainer>
+      ) : (
+        <p style={{ color: "white", fontSize: "12px" }}>Loading...</p>
+      )}
     </div>
   );
 };

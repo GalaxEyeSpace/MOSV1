@@ -1,0 +1,48 @@
+.alert-container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    background: #222;
+    color: white;
+    border-radius: 8px;
+  }
+  
+  .alert-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  
+  .alert-table th, .alert-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+  }
+  
+  .alert-table th {
+    background: #333;
+  }
+  
+  .alert-row {
+    background: #2a2a2a;
+  }
+  
+  .alert-status {
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .critical {
+    background-color: red;
+    color: white;
+  }
+  
+  .no-alerts {
+    color: #4caf50;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+  }
+  

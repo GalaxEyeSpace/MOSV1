@@ -1,86 +1,224 @@
-/* Ensure Full Page Layout without Horizontal Scroll */
+/* Full Page Styling */
 body, html {
-  overflow-x: hidden; /* Prevent horizontal scroll */
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
+  background-color: #121212; /* Dark background */
+  display: flex;
 }
 
-/* Main Dashboard Container */
-.telemetry-dashboard {
+/* 📦 Telemetry Container (Top-Left Position) */
+.telemetry-container {
+  width: 810px;  /* Fixed width */
+  height: 300px; /* Fixed height */
+  background-color: #1e1e1e; /* Darker container */
+  border: 2px solid #255434; /* Yellow border for visibility */
+  border-radius: 10px; /* Rounded corners */
+  position: absolute; /* Allows free positioning */
+  top: 80px;  /* Moves to the top */
+  left: 10px; /* Moves to the left */
   display: flex;
-  flex-direction: column;
-  height: 100vh; /* Full viewport height */
-  width: 100vw;  /* Full viewport width */
-  background-color: #121212; /* Dark Theme */
-  color: #e0e0e0; /* Light text */
-  font-family: Arial, sans-serif;
-  overflow: hidden; /* Prevent overflow */
-}
-
-/* Header Section */
-.header {
-  height: 5%;
-  background: #1e1e1e;
-  color: #ffffff;
-  text-align: center;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  border-bottom: 2px solid #333;
-  width: 100%;
-}
-
-/* Mission Details Section */
-.mission-section {
-  height: 15%;
-  background: #1e1e1e;
-  display: flex;
   align-items: center;
+  color: white; /* Text color */
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+  overflow: hidden; /* Prevents overflow issues */
+}
+
+/* ✅ Ensure Graph Scales Properly Inside Container */
+.telemetry-container > div {
+  width: 100%;  /* Ensure the graph takes full width */
+  height: 100%; /* Ensure the graph takes full height */
+}
+
+
+/* 📦 Container for Storage Graph */
+.telemetry1-container {
+  width: 450px;  /* Same width as Solar */
+  height: 280px; /* Same height */
+  background-color: #1e1e1e; /* Darker container */
+  border: 2px solid #255434; /* Blue border for differentiation */
+  border-radius: 10px;
+  display: flex;
   justify-content: center;
-  padding: 10px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-bottom: 2px solid #333;
-  width: 100%;
+  padding-bottom: 80px;
+  align-items: center;
+ /* Added padding to prevent cut-off */
+  overflow: hidden; /* Ensures content stays inside */
+  position: absolute;
+  top: 400px;  /* ✅ Move below the first container */
+  left: 10px;  /* ✅ Align with the first container */
 }
 
-/* 📊 Main Data Section - Grid Layout (Fixed Width) */
-.main-content {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three equal columns */
-  grid-template-rows: repeat(2, 1fr); /* Two equal rows */
-  height: 80%;
-  width: 100%;
-  gap: 15px;
-  padding: 10px;
-  max-width: 100vw; /* Ensure it doesn’t exceed the screen width */
+/* ✅ Ensure Graph Fits Properly Inside */
+.telemetry1-container > div {
+  width: 100%;  /* Prevent graph from exceeding the container width */
+  height: 100%; /* Prevent graph from exceeding the container height */
 }
-
-/* Ensure Each Section Fits Properly */
-.main-content > div {
-  background: #1e1e1e;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+.telemetry2-container {
+  width: 350px;  /* Same width as Solar */
+  height: 280px; /* Same height */
+  background-color: #1e1e1e; /* Darker container */
+  border: 2px solid #255434; /* Blue border for differentiation */
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 80px;
+  align-items: center;
+ /* Added padding to prevent cut-off */
+  overflow: hidden; /* Ensures content stays inside */
+  position: absolute;
+  top: 400px;  /* ✅ Move below the first container */
+  left: 470px;  /* ✅ Align with the first container */
+}
+.telemetry3-container {
+  width: 800px;  /* Same width as Solar */
+  height: 60px; /* Same height */
+  background-color: #1e1e1e; /* Darker container */
+  border: 2px solid #255434; /* Blue border for differentiation */
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+ /* Added padding to prevent cut-off */
+  overflow: hidden; /* Ensures content stays inside */
+  position: absolute;
+  top: 775px;  /* ✅ Move below the first container */
+  left: 10px;  /* ✅ Align with the first container */
+}
+.telemetry4-container {
+  width: 800px;  /* Same width as Solar */
+  height: 200px; /* Same height */
+  background-color: #1e1e1e; /* Darker container */
+  border: 2px solid #255434; /* Blue border for differentiation */
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+ /* Added padding to prevent cut-off */
+  overflow: hidden; /* Ensures content stays inside */
+  position: absolute;
+  top: 860px;  /* ✅ Move below the first container */
+  left: 10px;  /* ✅ Align with the first container */
+}
+/* ✅ Power Telemetry Title (Fixed Position at the Top) */
+.power-telemetry-title {
+  position: absolute; /* Ensure it stays at the top */
+  top: 1px; /* Position it at the very top */
+  left: 20px; /* Center the title horizontally */
   text-align: center;
-  border: 1px solid #333;
-  max-width: 100%; /* Prevent overflow */
-  overflow: hidden; /* Hide any extra content */
+  font-size: 24px;
+  color: #ffcc00; /* Yellow text for contrast */
+  background-color: #1e1e1e; /* Dark background for contrast */
+  border-bottom: 2px solid #444; /* Separator line */
+  z-index: 100; /* Ensure it's above all components */
+}
+/* 📦 Velocity Visualization Container */
+.telemetry5-container {
+  width: 780px;
+  height: 420px;
+  background-color: #1e1e1e; /* ✅ Ensures contrast with Three.js scene */
+  border: 2px solid #255434;
+  border-radius: 10px;
+  position: absolute;
+  top: 80px;
+  left: 840px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
+}
+.telemetry-container-5 > div {
+  width: 100%;  /* Ensure the graph takes full width */
+  height: 100%; /* Ensure the graph takes full height */
 }
 
-/* Responsive Fix for Smaller Screens */
-@media screen and (max-width: 1200px) {
-  .main-content {
-    grid-template-columns: 1fr 1fr; /* Two columns instead of three */
-    grid-template-rows: auto auto auto; /* More rows */
-  }
+.telemetry6-container {
+  width: 1280px;
+  height: 450px;
+  background-color: #020202; /* ✅ Ensures contrast with Three.js scene */
+  border: 2px solid #255434;
+  border-radius: 10px;
+  position: absolute;
+  top: 80px;
+  left: 840px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
+}
+.telemetry-container-6 > div {
+  width: 100%;  /* Ensure the graph takes full width */
+  height: 100%; /* Ensure the graph takes full height */
+}
+.telemetry7-container {
+  width: 700px;
+  height: 400px;
+  background-color: #020202; /* ✅ Ensures contrast with Three.js scene */
+  border: 2px solid #255434;
+  border-radius: 10px;
+  position: absolute;
+  top: 80px;
+  left: 1050px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
 }
 
-@media screen and (max-width: 800px) {
-  .main-content {
-    grid-template-columns: 1fr; /* Single column layout */
-    grid-template-rows: auto auto auto auto auto auto; /* Six rows */
-  }
+.telemetry8-container {
+  width: 2000px;
+  height: 700px;
+  background-color: #020202; /* ✅ Ensures contrast with Three.js scene */
+  border: 2px solid #255434;
+  border-radius: 10px;
+  position: absolute;
+  top: 950px;
+  left: 850px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
+}
+.telemetry9-container {
+  width: 650px;
+  height: 520px;
+  background-color: #020202; /* ✅ Ensures contrast with Three.js scene */
+  border: 2px solid #255434;
+  border-radius: 10px;
+  position: absolute;
+  top: 550px;
+  left: 840px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
+}
+.telemetry-container-9 > div {
+  width: 100%;  /* Ensure the graph takes full width */
+  height: 100%; /* Ensure the graph takes full height */
+}
+.telemetry10-container {
+  width: 610px;
+  height: 520px;
+  background-color: #020202; /* ✅ Ensures contrast with Three.js scene */
+  border: 2px solid #255434;
+  border-radius: 10px;
+  position: absolute;
+  padding-left:10px;
+  top: 550px;
+  left: 1500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
 }
