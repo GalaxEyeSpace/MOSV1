@@ -1,7 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from .models import Velocity, Storage, Power, Position, Omega, Attitude, AttErr  # Ensure these models are imported
+from .models import Velocity, Storage, Power, Position, Omega, Attitude, AttErr, Gpstemperaturesensor, Obctemperaturesensor # Ensure these models are imported
 
 class TelemetryConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -20,6 +20,24 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
             x=x,
             y=y,
             z=z
+        )
+    
+    @database_sync_to_async
+    def save_gps_temp(self, tempsensor, epochtime, timest, synthetictime):
+        return Gpstemperaturesensor.objects.create(
+            tempsensor=tempsensor,
+            epochtime=epochtime,
+            timest=timest,
+            synthetictime=synthetictime
+        )
+    
+    @database_sync_to_async
+    def save_obc_temp(self, tempsensor, epochtime, timest, synthetictime):
+        return Obctemperaturesensor.objects.create(
+            tempsensor=tempsensor,
+            epochtime=epochtime,
+            timest=timest,
+            synthetictime=synthetictime
         )
     
     @database_sync_to_async
@@ -153,6 +171,22 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
             z = omegas_data.get('z')
             # Save velocity data to the database asynchronously
             await self.save_omega(timestep, x, y, z)
+
+        gps_temp_data = data.get('gpsTemp', {})
+        if gps_temp_data:
+            temp = gps_temp_data.get('TempSensor')
+            epochtime = gps_temp_data.get('EpochTime')
+            timest = gps_temp_data.get('timest')
+            synthetictime = gps_temp_data.get('SyntheticTime')
+            await self.save_gps_temp(temp, epochtime, timest, synthetictime)
+
+        obc_temp_data = data.get('obcTemp', {})
+        if obc_temp_data:
+            temp = obc_temp_data.get('TempSensor')
+            epochtime = obc_temp_data.get('EpochTime')
+            timest = obc_temp_data.get('timest')
+            synthetictime = obc_temp_data.get('SyntheticTime')
+            await self.save_obc_temp(temp, epochtime, timest, synthetictime)
 
         # Optionally, send a message back to the WebSocket client (acknowledging the received data)
         await self.send(text_data=json.dumps({

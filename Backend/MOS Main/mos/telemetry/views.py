@@ -4,7 +4,7 @@ import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Velocity, Storage, Power, Position, Omega, Attitude, AttErr
+from .models import Velocity, Storage, Power, Position, Omega, Attitude, AttErr, Gpstemperaturesensor, Obctemperaturesensor
 from .filters import TimeRangeFilter
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -18,6 +18,8 @@ MODEL_MAPPING = {
     "omega": Omega,
     "attitude": Attitude,
     "atterr": AttErr,
+    "gpsTemp": Gpstemperaturesensor,
+    "obcTemp": Obctemperaturesensor,
 }
 
 @swagger_auto_schema(
