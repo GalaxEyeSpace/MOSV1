@@ -1,131 +1,92 @@
 import paho.mqtt.client as mqtt
 import json
 import queue
+import threading
 import time
 from django.conf import settings
-from .models import UplinkMessage, DownlinkMessage
-import threading
 
-# Queue to store responses from the subscription topic
-response_queue = queue.Queue()
-
-connect_count = 0  # Track how many times `on_connect` is triggered
+# Global variables
+client = None  
+mqtt_connected = False  
+response_queue = queue.Queue()  
 
 def on_connect(client, userdata, flags, rc):
-    global connect_count
-    connect_count += 1
-
+    """Handles MQTT connection and subscribes to topics."""
+    global mqtt_connected
     if rc == 0:
-        print(f"✅ Connected to MQTT Broker! (Connection count: {connect_count})")
-
-        # Ensure we unsubscribe before subscribing to prevent duplicates
-        client.unsubscribe(settings.MQTT_BROKER["SUBSCRIBE_TOPIC"])
-        client.subscribe(settings.MQTT_BROKER["SUBSCRIBE_TOPIC"], qos=1)
-
-        print(f"📡 Subscribed to {settings.MQTT_BROKER['SUBSCRIBE_TOPIC']} with QoS 1")
+        # print("✅ Connected to MQTT Broker!")
+        mqtt_connected = True
+        subscribe_topics(client)
     else:
         print(f"❌ Connection failed with error code {rc}")
 
-
-from datetime import datetime
+def subscribe_topics(client):
+    """Subscribes to the required topics."""
+    sub_topic = settings.MQTT_BROKER["SUBSCRIBE_TOPIC"]
+    pub_topic = settings.MQTT_BROKER["PUBLISH_TOPIC"]
+    # print(f"📡 Subscribing to: {sub_topic} and {pub_topic}...")
+    client.subscribe(sub_topic, qos=1)
+    client.subscribe(pub_topic, qos=1)
+    # print("✅ Subscribed successfully!")
 
 def on_message(client, userdata, msg):
+    """Handles incoming messages and places them in the response queue."""
     decoded_msg = msg.payload.decode()
     print(f"📩 Received Message: {decoded_msg} on topic {msg.topic}")
+    response_queue.put(decoded_msg)
 
-    try:
-        # Parse message into JSON
-        message_data = json.loads(decoded_msg)
-
-        # Extract timestamp from the received message
-        timestamp = message_data.get("timestamp")
-
-        if not timestamp:
-            print("⚠️ Warning: Received message without a timestamp! Inserting anyway.")
-        else:
-            # Convert timestamp to datetime (optional, for consistency)
-            timestamp_dt = datetime.fromisoformat(timestamp)
-
-            # Check if this timestamp already exists in the database
-            if DownlinkMessage.objects.filter(payload__contains=timestamp).exists():
-                print(f"⚠️ Duplicate message detected with timestamp {timestamp}, ignoring...")
-                return  # Ignore duplicate message
-
-        # ✅ Store downlink message if it's unique
-        store_downlink_message(decoded_msg)
-
-        # Put the message in the queue (for the function waiting for response)
-        response_queue.put(decoded_msg)
-
-    except json.JSONDecodeError:
-        print("❌ Error: Received an invalid JSON message, ignoring...")
-
-# Create MQTT Client
-client = mqtt.Client(client_id="django_mqtt_client", clean_session=True)
-
-# Set username & password
-client.username_pw_set(settings.MQTT_BROKER["USERNAME"], settings.MQTT_BROKER["PASSWORD"])
-
-# Enable SSL/TLS for secure connection
-client.tls_set()
-
-# Assign callbacks
-client.on_connect = on_connect
-client.on_message = on_message
-
-mqtt_started = False
-
-# Connect to the broker
 def start_mqtt():
-    global mqtt_started
-    if mqtt_started:
-        print("⚠️ MQTT client already running. Skipping duplicate start.")
-        return
-    
-    mqtt_started = True
+    """Ensures MQTT client is connected before publishing."""
+    global client, mqtt_connected
 
-    if not client.is_connected():
-        print("🚀 Starting MQTT Client...")
-        client.connect(settings.MQTT_BROKER["HOST"], settings.MQTT_BROKER["PORT"], keepalive=60)
-        client.loop_start()  # Start loop in a separate thread
+    if client is None:
+        client = mqtt.Client(client_id="django_mqtt_client", clean_session=True)
+        client.username_pw_set(settings.MQTT_BROKER["USERNAME"], settings.MQTT_BROKER["PASSWORD"])
+        client.tls_set()
+        client.on_connect = on_connect
+        client.on_message = on_message
 
-# Function to publish a message & wait for response
-def publish_and_wait_for_response(topic, payload, timeout=5):
-    """
-    Publishes a message to `topic` and waits for a response from the subscription topic.
-    """
+        try:
+            client.connect(settings.MQTT_BROKER["HOST"], settings.MQTT_BROKER["PORT"], keepalive=60)
+            client.loop_start()  # Start MQTT loop in background thread
+        except Exception as e:
+            print(f"❌ MQTT Connection Error: {e}")
+            return
+
+    # 🔹 **NEW: Wait for MQTT connection before continuing**
+    max_wait_time = 5  # Max 5 seconds
+    start_time = time.time()
+
+    while not mqtt_connected:
+        if time.time() - start_time > max_wait_time:
+            print("⛔ MQTT Connection Timeout!")
+            return
+        print("⏳ Waiting for MQTT connection...")
+        time.sleep(0.5)  # Wait for connection
+
+def publish_and_wait_for_response(topic, payload, timeout=10):
+    """Publishes a message and waits for a response from the downlink."""
+    start_mqtt()  # Ensure MQTT is running
+
+    if not mqtt_connected:
+        return {"error": "MQTT is not connected"}
+
     try:
-        # Convert payload to JSON
         message = json.dumps(payload)
-
-        # ✅ Store uplink message before publishing
-        store_uplink_message(message)
-
         print(f"📤 Publishing to {topic}: {message}")
-        client.publish(topic, message)
+        result = client.publish(topic, message, qos=1)
 
-        # ✅ Wait for a response from the queue (timeout in seconds)
+        if result.rc != mqtt.MQTT_ERR_SUCCESS:
+            print(f"❌ Failed to publish message with error code {result.rc}")
+            return {"error": "Failed to publish message"}
+
+        print("⏳ Waiting for response from loopback...")
         try:
             response = response_queue.get(timeout=timeout)
-            return response
+            print(f"✅ Received response: {response}")
+            return json.loads(response)  # Convert response to JSON
         except queue.Empty:
-            return "No response received"
+            return {"error": "No response received within timeout"}
 
     except Exception as e:
-        return f"Error: {str(e)}"
-
-# Store uplink messages in the DB
-def store_uplink_message(payload):
-    UplinkMessage.objects.create(payload=payload)
-
-# Store downlink messages in the DB
-def store_downlink_message(payload):
-    DownlinkMessage.objects.create(payload=payload)
-
-
-
-
-# curl
-# curl -X POST http://127.0.0.1:8000/mqtt/publish/ \
-#      -H "Content-Type: application/json" \
-#      -d '{"message": {"Task1": "Command", "Task2": "Test Command"}}'
+        return {"error": str(e)}

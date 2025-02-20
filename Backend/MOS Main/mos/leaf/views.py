@@ -68,6 +68,7 @@ def get_available_passes_view(request):
     
     return JsonResponse(data, safe=False)
 
+<<<<<<< HEAD
 @swagger_auto_schema(
     method='post',
     operation_description="Book a passage.",
@@ -86,6 +87,11 @@ def get_available_passes_view(request):
     }
 )
 @api_view(['POST'])
+=======
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+>>>>>>> ae5adc152153d96eac1d4b2b06861e00d26f79aa
 def book_passage_view(request):
     """View for booking a passage."""
     if request.method != "POST":
