@@ -1,10 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-<<<<<<< HEAD
-=======
 from .models import CommandResource
->>>>>>> d858510 (AstroServer RE functionality added, fetching CMD set)
 from .services import propagate_orbit, multistep_propagation, resource_estimation
 
 @csrf_exempt  
@@ -35,17 +32,13 @@ def multiple_propagate_orbit_view(request):
     except Exception as e:
         return JsonResponse({"error": f"Internal Server Error: {str(e)}"}, status=500)
     
-@csrf_exempt
-def resource_estimation_view(request):
-    try:
-        request_body = json.loads(request.body)  # Parse JSON request
-        response = resource_estimation(request_body)  # Call the service function
-        return JsonResponse(response, status=200 if response["status"] == "success" else 400)
+# @csrf_exempt
+# def resource_estimation_view(request):
+#     try:
+#         request_body = json.loads(request.body)  # Parse JSON request
+#         response = resource_estimation(request_body)  # Call the service function
+#         return JsonResponse(response, status=200 if response["status"] == "success" else 400)
 
-<<<<<<< HEAD
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
-=======
 #         try:
 #             request_body = json.loads(request.body)  
 #             response_data = resource_estimation(request_body)  # Call propagation service
@@ -115,4 +108,3 @@ def resource_estimation_view(request):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
->>>>>>> d858510 (AstroServer RE functionality added, fetching CMD set)
