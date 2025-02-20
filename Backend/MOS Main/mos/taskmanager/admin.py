@@ -22,6 +22,6 @@ class TimeSlotAdmin(admin.ModelAdmin):
 
 @admin.register(TaskCommand)
 class TaskCommandAdmin(admin.ModelAdmin):
-    list_display = ('task', 'command', 'execution_id', 'time_offset')
-    search_fields = ('task__task_id', 'command__command_id', 'execution_id')
+    list_display = ('task', 'command', 'time_offset')
+    search_fields = ('task__task_id', 'command__command_id')
 

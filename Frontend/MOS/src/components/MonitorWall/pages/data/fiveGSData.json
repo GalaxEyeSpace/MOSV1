@@ -1,0 +1,86 @@
+{
+  "groundStations": [
+    {
+      "id": 1,
+      "name": "Cyprus GS",
+      "status": "Confirmed",
+      "aos": "2025-02-19T08:00:00Z",
+      "los": "2025-02-19T08:15:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Oslo GS",
+      "status": "Requested",
+      "aos": "2025-02-19T09:00:00Z",
+      "los": "2025-02-19T09:20:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Tokyo GS",
+      "status": "Confirmed",
+      "aos": "2025-02-19T09:40:00Z",
+      "los": "2025-02-19T10:25:00Z"
+    },
+    {
+      "id": 4,
+      "name": "Hawaii GS",
+      "status": "Canceled",
+      "aos": "2025-02-20T07:00:00Z",
+      "los": "2025-02-20T07:18:00Z"
+    },
+    {
+      "id": 5,
+      "name": "Houston GS",
+      "status": "Confirmed",
+      "aos": "2025-02-20T12:00:00Z",
+      "los": "2025-02-20T12:15:00Z"
+    },
+    {
+      "id": 6,
+      "name": "Cyprus GS",
+      "status": "Confirmed",
+      "aos": "2025-02-20T08:00:00Z",
+      "los": "2025-02-20T08:15:00Z"
+    },
+    {
+      "id": 7,
+      "name": "Oslo GS",
+      "status": "Requested",
+      "aos": "2025-02-20T09:00:00Z",
+      "los": "2025-02-20T09:20:00Z"
+    },
+    {
+      "id": 8,
+      "name": "Tokyo GS",
+      "status": "Confirmed",
+      "aos": "2025-02-20T09:40:00Z",
+      "los": "2025-02-20T10:25:00Z"
+    },
+    {
+      "id": 9,
+      "name": "Hawaii GS",
+      "status": "Canceled",
+      "aos": "2025-02-21T07:00:00Z",
+      "los": "2025-02-21T07:18:00Z"
+    },
+    {
+      "id": 10,
+      "name": "Houston GS",
+      "status": "Confirmed",
+      "aos": "2025-02-21T12:00:00Z",
+      "los": "2025-02-21T12:15:00Z"
+    }
+  ],
+  "initialTelemetry": [
+    {
+      "timestamp": "2025-02-20T07:59:50Z",
+      "message": "TM: Satellite in idle mode"
+    }
+  ],
+  "initialCommands": [
+    {
+      "timestamp": "2025-02-20T07:59:55Z",
+      "command": "TC: Begin auto-schedule pass checks"
+    }
+  ]
+}

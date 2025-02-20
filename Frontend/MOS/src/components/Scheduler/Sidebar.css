@@ -1,0 +1,67 @@
+/* Sidebar.css */
+.sidebar {
+    background-color: #181818; /* Dark background */
+    color: #fff; /* White text */
+    padding: 20px;
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto; 
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+  .sidebar h2 {
+    color: #00ffff; /* Cyan heading */
+    margin-bottom: 20px;
+  }
+  
+  .list-item {
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .list-item:hover {
+    background-color: #282828; /* Darker background on hover */
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+  
+  .text {
+    margin-right: 10px;
+  }
+  
+  .expand-icon {
+    margin-left: auto; 
+  }
+  
+  .sublist {
+    display: none;
+    margin-left: 20px;
+  }
+  
+  .sublist.open {
+    display: block;
+  }
+  
+  .sublist li {
+    padding: 5px 20px;
+  }
+  
+  .import-button {
+    background-color: #00ffff; /* Cyan button */
+    color: #181818; /* Dark text on button */
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .import-button:hover {
+    background-color: #00aaff; /* Lighter cyan on hover */
+  }

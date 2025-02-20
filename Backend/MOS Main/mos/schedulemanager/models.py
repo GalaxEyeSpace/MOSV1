@@ -1,4 +1,5 @@
 from django.db import models
+from taskmanager.models import TaskCommand
 
 class ScheduleSet(models.Model):
     """
@@ -20,7 +21,7 @@ class Schedule(models.Model):
     - The ScheduleSet grouping
     """
     schedule_set = models.ForeignKey(ScheduleSet, related_name='schedules', on_delete=models.CASCADE)
-    execution_id = models.BigIntegerField()
+    execution_id = models.ForeignKey(TaskCommand, related_name='execution', on_delete=models.CASCADE)
     time_tag = models.DateTimeField()
     task = models.ForeignKey('taskmanager.Task', on_delete=models.CASCADE)
     command = models.ForeignKey('Utility.Command', on_delete=models.CASCADE)

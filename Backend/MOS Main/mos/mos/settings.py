@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-kw_le$8s2&k7(54sj^*h80r9fg@2rt%=2^ko_k1y#m$me0n1!2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 EXTERNAL_API_SETTINGS = {
     'USERNAME': 'galaxeye01',
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'schedulemanager',
     'django_filters',
     'drf_yasg',
+    'corsheaders',  
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
+    'django.middleware.common.CommonMiddleware', 
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 ROOT_URLCONF = 'mos.urls'
 

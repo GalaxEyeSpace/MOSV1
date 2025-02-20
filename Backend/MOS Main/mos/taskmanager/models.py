@@ -33,9 +33,8 @@ class TaskCommand(models.Model):
     """
     task = models.ForeignKey(Task, related_name='task_commands', on_delete=models.CASCADE)
     command = models.ForeignKey('Utility.Command', related_name='command_in_tasks', on_delete=models.CASCADE)
-    execution_id = models.BigIntegerField()
     time_offset = models.FloatField(default=0.0, help_text="Time offset in seconds")
     parameters = JSONField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.command.command_id} in {self.task.task_id} (ExecID: {self.execution_id})"
+        return f"{self.command.command} in {self.task.task_id})"

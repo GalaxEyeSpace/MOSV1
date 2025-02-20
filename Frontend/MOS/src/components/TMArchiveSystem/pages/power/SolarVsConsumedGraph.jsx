@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import { DataSet, Timeline } from "vis-timeline/standalone";
 import "vis-timeline/styles/vis-timeline-graph2d.min.css";
-import "../styles/power/solarVsConsumed.css";
+//import "../styles/power/solarVsConsumed.css";
 
 const SolarVsConsumedGraph = ({ data }) => {
   const graphRef = useRef(null);
