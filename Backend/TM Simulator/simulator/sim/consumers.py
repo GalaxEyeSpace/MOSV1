@@ -60,8 +60,9 @@
 import asyncio
 import json
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 import websockets
+import time
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 class TelemetryConsumer(AsyncWebsocketConsumer):
@@ -73,6 +74,8 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
         "omega": True, 
         "attitude": True,
         "attErr": True, 
+        "gpsTemp": True,
+        "obcTemp": True
     }
 
     async def connect(self):
@@ -169,6 +172,20 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
                 "roll": random.uniform(-10, 10),
                 "pitch": random.uniform(-10, 10),
                 "yaw": random.uniform(-10, 10),
+            }
+        if self.enabled_telemetry["gpsTemp"]:
+            data["gpsTemp"] = {
+                "TempSensor": round(random.uniform(-40, 185), 2),  # Random temp in °F
+                "EpochTime": current_time,  # Convert to ISO 8601 format
+                "timest": current_time,  # Keep it consistent
+                "SyntheticTime": current_time
+            }
+        if self.enabled_telemetry["obcTemp"]:
+            data["obcTemp"] = {
+                "TempSensor": round(random.uniform(-40, 185), 2),  # Random temp in °F
+                "EpochTime": current_time,  # Convert to ISO 8601 format
+                "timest": current_time,  # Keep it consistent
+                "SyntheticTime": current_time
             }
         # print(f"Generated data: {data}")  # Debug print
         return data

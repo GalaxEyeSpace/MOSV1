@@ -8,9 +8,13 @@ import TMArchiveSystem from "./components/TMArchiveSystem/pages/ArchiveTelemetry
 import TMRealAstro from "./components/TMRealAstro/pages/TMRealAstro";
 import TMArchiveAstro from "./components/TMArchiveAstro/pages/TMArchiveAstro";
 import Rtc from "./components/RTC/pages/Rtc";
+<<<<<<< HEAD
 
 import RTCMonitorwall from "./components/MonitorWall/pages/RTCMonitorwall";
 import Schedular from "./components/Scheduler/Schedular";
+=======
+import Scheduler from "./components/Scheduler/pages/Scheduler";
+>>>>>>> rush
 
 function App() {
   return (
@@ -19,9 +23,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/planner" element={<Planner/>} />
         <Route path="/rtc" element={<Rtc />} />
+<<<<<<< HEAD
         <Route path="/scheduler" element={<Schedular />} />
         <Route path="/monitor" element={<MonitorWall />} />
         <Route path="/RTCMonitor" element={<RTCMonitorwall />} />
+=======
+        <Route path="/scheduler" element={<Scheduler />} />
+        <Route path="/monitor" element={<MonitorWall />} />
+>>>>>>> rush
         <Route path="/system-realtime" element={<TMRealSystem />} />
         <Route path="/system-archive" element={<TMArchiveSystem />} />
         <Route path="/astro-realtime" element={<TMRealAstro />} />

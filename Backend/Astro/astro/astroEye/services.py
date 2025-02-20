@@ -1,6 +1,7 @@
 import json
 from sgp4.api import Satrec, jday
 from datetime import datetime, timedelta
+from .models import CommandResource
 
 def propagate_orbit(request_body):
     print("Processing request body:", request_body)
@@ -111,84 +112,142 @@ def multistep_propagation(request_body):
 
     return results
 
-# def resource_estimation(request_body):
+def resource_estimation(request_body):
+<<<<<<< HEAD
+    print("Processing request body:", request_body)
 
-#     command_lookup = {
-#     "CMD001": {"power": 50, "storage": 100},  # Command ID CMD001 requires 50W power and 100MB storage
-#     "CMD002": {"power": 100, "storage": 50},  # Command ID CMD002 requires 100W power and 50MB storage
-#     "CMD003": {"power": 150, "storage": 0},   # Command ID CMD003 requires 150W power and no storage
-#     "CMD004": {"power": 70, "storage": 100},  # Command ID CMD004 requires 70W power and 120MB storage
-#     # Add more command IDs with their respective resource needs here
-#     }
+    # ✅ Parse JSON correctly
+    if isinstance(request_body, str):  
+        data = json.loads(request_body)
+    else:
+        data = request_body
 
-#     print("Processing request body:", request_body)
+    print("Extracted data:", data)
 
-#     # ✅ Parse JSON correctly
-#     if isinstance(request_body, str):  
-#         data = json.loads(request_body)
-#     else:
-#         data = request_body
+    current_resources = data.get("initial_resources", {})
+    command_list = data.get("command_ids", [])
 
-#     print("Extracted data:", data)
+    resources_over_time = []
 
-#     current_resources = data.get("initial_resources", [])
+    for command_index, command_id in enumerate(command_list):
+        print(f"Processing Command ID {command_id}")
 
-#     command_list = data.get("command_ids", [])
+        # Fetch from the database instead of dictionary
+        try:
+            task_resources = CommandResource.objects.get(command_id=command_id)
+        except CommandResource.DoesNotExist:
+            return {
+                "status": "failure",
+                "error": f"Invalid Command ID: {command_id}"
+            }
 
-#     resources_over_time = [] 
+        power_required = task_resources.power
+        storage_required = task_resources.storage
 
-#     for command_index, command_id in enumerate(command_list):
-#         print(f"Processing Command ID {command_id}")
+        # Check if resources are sufficient
+        if current_resources["power"] >= power_required and current_resources["storage"] >= storage_required:
+            current_resources["power"] -= power_required
+            current_resources["storage"] -= storage_required
+
+            resources_over_time.append({
+                "command_index": command_index + 1,
+                "command_id": command_id,
+                "remaining_power": current_resources["power"],
+                "remaining_storage": current_resources["storage"],
+            })
+        else:
+            insufficient_resource = "power" if current_resources["power"] < power_required else "storage"
+            remaining_resource = current_resources[insufficient_resource]
+
+            return {
+                "status": "failure",
+                "failed_command": command_id,
+                "insufficient_resource": insufficient_resource,
+                "required": getattr(task_resources, insufficient_resource),
+                "remaining": remaining_resource,
+                "remaining_resources": current_resources,
+                "resources_over_time": resources_over_time
+            }
+
+=======
+
+    command_lookup = {
+    "CMD001": {"power": 50, "storage": 100},  # Command ID CMD001 requires 50W power and 100MB storage
+    "CMD002": {"power": 100, "storage": 50},  # Command ID CMD002 requires 100W power and 50MB storage
+    "CMD003": {"power": 150, "storage": 0},   # Command ID CMD003 requires 150W power and no storage
+    "CMD004": {"power": 70, "storage": 100},  # Command ID CMD004 requires 70W power and 120MB storage
+    # Add more command IDs with their respective resource needs here
+    }
+
+    print("Processing request body:", request_body)
+
+    # ✅ Parse JSON correctly
+    if isinstance(request_body, str):  
+        data = json.loads(request_body)
+    else:
+        data = request_body
+
+    print("Extracted data:", data)
+
+    current_resources = data.get("initial_resources", [])
+
+    command_list = data.get("command_ids", [])
+
+    resources_over_time = [] 
+
+    for command_index, command_id in enumerate(command_list):
+        print(f"Processing Command ID {command_id}")
         
-#         # Fetch the resources for the current command ID from the lookup table
-#         task_resources = command_lookup.get(command_id)
+        # Fetch the resources for the current command ID from the lookup table
+        task_resources = command_lookup.get(command_id)
 
-#         if not task_resources:
-#             print(f"Invalid Command ID: {command_id}. Skipping...")
-#             continue
+        if not task_resources:
+            print(f"Invalid Command ID: {command_id}. Skipping...")
+            continue
 
-#         # Extract resource requirements for the current task
-#         power_required = task_resources.get("power", 0)
-#         storage_required = task_resources.get("storage", 0)
+        # Extract resource requirements for the current task
+        power_required = task_resources.get("power", 0)
+        storage_required = task_resources.get("storage", 0)
         
-#         # Check if the satellite has enough resources to perform the task
-#         if current_resources["power"] >= power_required and current_resources["storage"] >= storage_required:
-#             # Update the resources after completing the task
-#             current_resources["power"] -= power_required
-#             current_resources["storage"] -= storage_required
-#             # Track other resources (e.g., fuel, data, etc.) if necessary
+        # Check if the satellite has enough resources to perform the task
+        if current_resources["power"] >= power_required and current_resources["storage"] >= storage_required:
+            # Update the resources after completing the task
+            current_resources["power"] -= power_required
+            current_resources["storage"] -= storage_required
+            # Track other resources (e.g., fuel, data, etc.) if necessary
 
-#             # Log the resources after this task
-#             resources_over_time.append({
-#                 "command_index": command_index + 1,
-#                 "command_id": command_id,
-#                 "remaining_power": current_resources["power"],
-#                 "remaining_storage": current_resources["storage"],
-#             })
-#             # print(f"Command ID {command_id} completed. Remaining Power: {current_resources['power']} W, Storage: {current_resources['storage']} MB")
-#         else:
-#             # Identify which resource is insufficient
-#             if current_resources["power"] < power_required:
-#                 insufficient_resource = "power"
-#                 remaining_resource = current_resources["power"]
-#             else:
-#                 insufficient_resource = "storage"
-#                 remaining_resource = current_resources["storage"]
+            # Log the resources after this task
+            resources_over_time.append({
+                "command_index": command_index + 1,
+                "command_id": command_id,
+                "remaining_power": current_resources["power"],
+                "remaining_storage": current_resources["storage"],
+            })
+            # print(f"Command ID {command_id} completed. Remaining Power: {current_resources['power']} W, Storage: {current_resources['storage']} MB")
+        else:
+            # Identify which resource is insufficient
+            if current_resources["power"] < power_required:
+                insufficient_resource = "power"
+                remaining_resource = current_resources["power"]
+            else:
+                insufficient_resource = "storage"
+                remaining_resource = current_resources["storage"]
 
-#             # Return failure message with the insufficient resource details
-#             return {
-#                 "status": "failure",
-#                 "failed_command": command_id,
-#                 "insufficient_resource": insufficient_resource,
-#                 "required": task_resources[insufficient_resource],
-#                 "remaining": remaining_resource,
-#                 "remaining_resources": current_resources,
-#                 "resources_over_time": resources_over_time
-#             }
+            # Return failure message with the insufficient resource details
+            return {
+                "status": "failure",
+                "failed_command": command_id,
+                "insufficient_resource": insufficient_resource,
+                "required": task_resources[insufficient_resource],
+                "remaining": remaining_resource,
+                "remaining_resources": current_resources,
+                "resources_over_time": resources_over_time
+            }
 
-#     # If all commands are executed successfully, return the resources utilized
-#     return {
-#         "status": "success",
-#         "resources_over_time": resources_over_time,
-#         "final_resources": current_resources
-#     }
+    # If all commands are executed successfully, return the resources utilized
+>>>>>>> d858510 (AstroServer RE functionality added, fetching CMD set)
+    return {
+        "status": "success",
+        "resources_over_time": resources_over_time,
+        "final_resources": current_resources
+    }
