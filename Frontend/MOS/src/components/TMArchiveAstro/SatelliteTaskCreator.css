@@ -1,0 +1,65 @@
+.task-form {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .datetime-picker {
+    margin-bottom: 15px;
+  }
+  
+  .datetime-inputs {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  
+  .date-input {
+    flex: 1 1 40%;
+  }
+  
+  .time-input {
+    flex: 1 1 15%;
+    min-width: 60px;
+  }
+  
+  .form-button {
+    background-color: #007BFF;
+    border: none;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .form-button:hover {
+    background-color: #0056b3;
+  }
+  

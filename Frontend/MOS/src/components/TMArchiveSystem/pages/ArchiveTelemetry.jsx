@@ -1,6 +1,6 @@
 // TMArchiveSystem/pages/ArchiveTelemetry.js
 import React from "react";
-import "../styles/archivetelemetry.css";
+import "../styles/archiveTelemetry.css";
 import SolarVsConsumedGraph from "./power/SolarVsConsumedGraph";
 import StorageUsage from "./power/StorageUsage";
 import EnergySummary from "./power/EnergySummary";

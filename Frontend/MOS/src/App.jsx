@@ -10,6 +10,8 @@ import TMArchiveAstro from "./components/TMArchiveAstro/pages/TMArchiveAstro";
 import Rtc from "./components/RTC/pages/Rtc";
 import RTCMonitorwall from "./components/MonitorWall/pages/RTCMonitorwall";
 import Schedular from "./components/Scheduler/Schedular";
+import SatelliteTaskCreator from "./components/TMArchiveAstro/Taskmaker";
+import TaskScheduler from "./components/Scheduler/LeanSchedular";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/system-archive" element={<TMArchiveSystem />} />
         <Route path="/astro-realtime" element={<TMRealAstro />} />
         <Route path="/astro-archive" element={<TMArchiveAstro />} />
+        <Route path="/taskmaker" element={<SatelliteTaskCreator />} />
+        <Route path="/taskscheduler" element={<TaskScheduler />} />
       </Routes>
     </Router>
   );
