@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',  
     'realtimecommanding',
-    'leaf'
+    'leaf',
+    'seed'
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
 
 
 ROOT_URLCONF = 'mos.urls'
@@ -97,6 +102,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'mysqlite3.db',
+        'OPTIONS': {
+            'timeout': 50,  # Increases timeout (default is 5 seconds)
+        }
     }
 }
 

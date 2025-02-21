@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .services import fetch_satellite_data, get_passages, fetch_available_passes, book_passage_service, store_passages
+from .services import fetch_satellite_data, get_passages, fetch_available_passes, book_passage_service, store_passages, fetch_passage_schedule
 from .models import SatellitePassage
 from datetime import datetime
 import json
@@ -13,17 +13,28 @@ def satellite_info_view(request):
     
     return JsonResponse(data, safe=False)
 
+from django.http import JsonResponse
+
+def get_schedule(request):
+    """
+    Django view that retrieves the passage schedule by calling fetch_passage_schedule().
+    Returns JSON response.
+    """
+    schedule_data = fetch_passage_schedule()
+    return JsonResponse(schedule_data, safe=False)
+
+
 def get_passage_info_view(request):
     """
     Fetches passage info from external API, stores them in the DB, and returns all stored data.
     """
     data = get_passages()
 
+    # Store or update passages in DB
+    # store_passages(data)
+
     if "error" in data:
         return JsonResponse({"error": data["error"]}, status=500)
-
-    # Store or update passages in DB
-    store_passages(data)
 
     # Retrieve and return all stored passages
     all_passages = SatellitePassage.objects.all().values()
