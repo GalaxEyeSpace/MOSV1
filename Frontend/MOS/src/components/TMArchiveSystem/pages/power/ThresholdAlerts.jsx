@@ -3,7 +3,7 @@ import "../../styles/power/alerts.css";
 
 const ThresholdAlerts = () => {
   const [alerts, setAlerts] = useState([]);
-
+  
   useEffect(() => {
     fetch("http://localhost:8000/telemetry/get-data/?table=power&start_time=2024-12-05T09:50:59.000Z&end_time=2024-12-05T10:40:58.000Z")
       .then(response => response.json())

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/pages/Home";
 import Planner from "./components/GroundStationPlanner/pages/Planner";
 import MonitorWall from "./components/MonitorWall/pages/MonitorWall";
-import TMRealSystem from "./components/TMRealSystem/pages/TMRealSystem";
+import TMRealSystem from "./components/TMRealSystem/TMRealSystem";
 import TMArchiveSystem from "./components/TMArchiveSystem/pages/ArchiveTelemetry";
 import TMRealAstro from "./components/TMRealAstro/pages/TMRealAstro";
 import TMArchiveAstro from "./components/TMArchiveAstro/pages/TMArchiveAstro";

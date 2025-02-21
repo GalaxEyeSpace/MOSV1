@@ -1,0 +1,38 @@
+.telemetry1 {
+    width: 800px;  /* Fixed width */
+    height: 400px; /* Fixed height */
+    background-color: #1e1e1e; /* Darker container */
+    border: 2px solid #255434; /* Yellow border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute; /* Allows free positioning */
+    top: 80px;  /* Moves to the top */
+    left: 10px; /* Moves to the left */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(17, 17, 17); /* Text color */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+    overflow: hidden; /* Prevents overflow issues */
+  }
+  
+  /* ✅ Ensure Graph Scales Properly Inside Container */
+  .telemetry1 > div {
+    width: 100%;  /* Ensure the graph takes full width */
+    height: 100%; /* Ensure the graph takes full height */
+  }
+  .telemetry2 {
+    width: 120px;  /* Fixed width */
+    height: 200px; /* Fixed height */
+    background-color: #1e1e1e; /* Darker container */
+    border: 2px solid #255434; /* Yellow border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute; /* Allows free positioning */
+    top: 278px;  /* Moves to the top */
+    left: 820px; /* Moves to the left */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(17, 17, 17); /* Text color */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+    overflow: hidden; /* Prevents overflow issues */
+  }

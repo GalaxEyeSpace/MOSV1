@@ -10,7 +10,6 @@ import VelocityVisualization from "./VelocityVisualization";
 import PositionTrend from "./PositionTrend";
 import Temperature from "./Temperature";
 
-
 const ArchiveTelemetry = () => {
   return (
      <>
@@ -38,7 +37,6 @@ const ArchiveTelemetry = () => {
       <div className="telemetry10-container">
         <Temperature />
       </div>
-    
      </>
   );
 };

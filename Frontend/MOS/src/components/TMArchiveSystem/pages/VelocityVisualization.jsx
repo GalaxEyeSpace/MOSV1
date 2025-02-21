@@ -34,7 +34,7 @@ const AttitudeVisualization = () => {
       })
       .catch((error) => console.error("Error fetching velocity data:", error));
   }, []);
-
+  
   return (
     <div style={{ width: "90%", margin: "auto", padding: "20px" }}>
       {attitudeData.length > 0 ? (
