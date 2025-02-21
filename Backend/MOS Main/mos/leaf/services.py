@@ -93,6 +93,16 @@ def get_passages():
     except requests.RequestException as e:
         return {"error": f"Failed to fetch schedule data: {str(e)}"}
     
+from .models import SatellitePassage
+
+def fetch_passage_schedule():
+    """
+    Fetches all passage schedules from the database.
+    Returns a list of dictionaries containing passage data.
+    """
+    schedule = SatellitePassage.objects.all().values()
+    return list(schedule)  # Convert queryset to a list of dictionaries
+
 def store_passages(data):
     """
     Stores or updates passage records in the database.

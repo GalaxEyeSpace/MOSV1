@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from .services import fetch_satellite_data, get_passages, fetch_available_passes, book_passage_service, store_passages, fetch_passage_schedule
 from .services import (
     fetch_satellite_data, get_passages, fetch_available_passes, 
     book_passage_service, store_passages
@@ -6,20 +7,7 @@ from .services import (
 from .models import SatellitePassage
 from datetime import datetime
 import json
-import logging
-from rest_framework.decorators import api_view
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
-from django.views.decorators.csrf import csrf_exempt
 
-logger = logging.getLogger(__name__)
-
-@swagger_auto_schema(
-    method='get',
-    operation_description="Fetch satellite data.",
-    responses={200: openapi.Response("Satellite Data Retrieved Successfully")}
-)
-@api_view(['GET'])
 def satellite_info_view(request):
     """View for fetching satellite data."""
     data = fetch_satellite_data()
@@ -29,22 +17,16 @@ def satellite_info_view(request):
     
     return JsonResponse(data, safe=False)
 
-@swagger_auto_schema(
-    method='get',
-    operation_description="Fetches passage info from external API, stores them in the DB, and returns all stored data.",
-    responses={200: openapi.Response("Passages Retrieved Successfully")}
-)
-@api_view(['GET'])
 def get_passage_info_view(request):
     """
     Fetches passage info from external API, stores them in the DB, and returns all stored data.
     """
     data = get_passages()
-    
+
     if "error" in data:
         return JsonResponse({"error": data["error"]}, status=500)
-    
-    store_passages(data)
+
+    # Retrieve and return all stored passages
     all_passages = SatellitePassage.objects.all().values()
     return JsonResponse(list(all_passages), safe=False)
 
