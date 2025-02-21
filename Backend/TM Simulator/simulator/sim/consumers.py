@@ -95,7 +95,7 @@ class TelemetryConsumer(AsyncWebsocketConsumer):
                 telemetry_data = self.generate_fake_data()
                 print(f"Sending telemetry data", telemetry_data)  # Log the data you're sending
                 await websocket.send(json.dumps(telemetry_data))
-                await asyncio.sleep(5)
+                await asyncio.sleep(1)
                 print("Telemetry Sent")
 
     async def receive(self, text_data):

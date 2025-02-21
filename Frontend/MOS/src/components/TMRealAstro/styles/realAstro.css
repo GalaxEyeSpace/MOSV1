@@ -1,0 +1,111 @@
+.telemetry2 {
+    width: 800px;  /* Fixed width */
+    height: 400px; /* Fixed height */
+    background-color: #1e1e1e; /* Darker container */
+    border: 2px solid #255434; /* Yellow border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute; /* Allows free positioning */
+    top: 100px;  /* Moves to the top */
+    left: 10px; /* Moves to the left */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(17, 17, 17); /* Text color */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+    overflow: hidden; /* Prevents overflow issues */
+  }
+  .telemetry2 > div {
+    width: 100%;  /* Ensure the graph takes full width */
+    height: 100%; /* Ensure the graph takes full height */
+  }
+  .telemetry3 {
+    width: 800px;  /* Fixed width */
+    height: 400px; /* Fixed height */
+    background-color: #1e1e1e; /* Darker container */
+    border: 2px solid #255434; /* Yellow border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute; /* Allows free positioning */
+    top: 590px;  /* Moves to the top */
+    left: 10px; /* Moves to the left */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(17, 17, 17); /* Text color */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+    overflow: hidden; /* Prevents overflow issues */
+  }
+  .telemetry3 > div {
+    width: 100%;  /* Ensure the graph takes full width */
+    height: 100%; /* Ensure the graph takes full height */
+  }
+  .telemetry4 {
+    width: 800px;  /* Fixed width */
+    height: 400px; /* Fixed height */
+    background-color: #1e1e1e; /* Darker container */
+    border: 2px solid #255434; /* Yellow border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute; /* Allows free positioning */
+    top: 100px;  /* Moves to the top */
+    left: 860px; /* Moves to the left */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(17, 17, 17); /* Text color */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+    overflow: hidden; /* Prevents overflow issues */
+  }
+  .telemetry4 > div {
+    width: 100%;  /* Ensure the graph takes full width */
+    height: 100%; /* Ensure the graph takes full height */
+  }
+
+  .telemetry5 {
+    width: 800px;  /* Fixed width */
+    height: 600px; /* Fixed height */
+    background-color: #1e1e1e; /* Darker container */
+    border: 2px solid #255434; /* Yellow border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute; /* Allows free positioning */
+    top: 590px;  /* Moves to the top */
+    left: 860px; /* Moves to the left */
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    color: rgb(17, 17, 17); /* Text color */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+    overflow: hidden; /* Prevents overflow issues */
+  }
+
+  .telemetry6 {
+    width: 200px;  /* Fixed width */
+    height: 50px; /* Fixed height */
+    background-color: #516951; /* Darker container */
+    border: 2px solid #255434; /* Yellow border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute; /* Allows free positioning */
+    top: 40px;  /* Moves to the top */
+    left: 10px; /* Moves to the left */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(241, 237, 237); /* Text color */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+    overflow: hidden; /* Prevents overflow issues */
+  }
+  .telemetry8 {
+    width: 200px;  /* Fixed width */
+    height: 50px; /* Fixed height */
+    background-color: #516951; /* Darker container */
+    border: 2px solid #255434; /* Yellow border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    position: absolute; /* Allows free positioning */
+    top: 40px;  /* Moves to the top */
+    left: 860px; /* Moves to the left */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(241, 237, 237); /* Text color */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+    overflow: hidden; /* Prevents overflow issues */
+  }
