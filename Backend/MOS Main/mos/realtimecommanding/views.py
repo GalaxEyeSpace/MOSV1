@@ -6,24 +6,20 @@ from .mqttservice import publish_and_wait_for_response
 
 @csrf_exempt
 def mqtt_publish_view(request):
+    """API endpoint to publish an MQTT message and return the response."""
     try:
-        # Parse the incoming request
+        # Parse request data
         data = json.loads(request.body)
 
-        # Extract message and ensure a topic is present
-        message = data.get("message")
+        # Ensure topic is available
         topic = settings.MQTT_BROKER["PUBLISH_TOPIC"]
-
-        if not message:
+        if not data:
             return JsonResponse({"error": "Message cannot be empty"}, status=400)
 
-        # Publish the message & wait for response
-        response = publish_and_wait_for_response(topic, message)
+        # Publish message & wait for response
+        response = publish_and_wait_for_response(topic, data, timeout=10)
 
-        if response:
-            return JsonResponse({"status": "success", "response": response})
-        else:
-            return JsonResponse({"status": "error", "message": "No response received"})
+        return JsonResponse({"status": "success", "response": response})
 
     except json.JSONDecodeError:
         return JsonResponse({"error": "Invalid JSON format"}, status=400)

@@ -48,6 +48,9 @@ def get_available_passes_view(request):
 
     return JsonResponse(data, safe=False)
 
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
 def book_passage_view(request):
     """View for booking a passage."""
     if request.method != "POST":
