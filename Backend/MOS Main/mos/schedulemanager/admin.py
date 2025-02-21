@@ -7,12 +7,11 @@ class ScheduleInline(admin.TabularInline):
 
 @admin.register(ScheduleSet)
 class ScheduleSetAdmin(admin.ModelAdmin):
-    list_display = ('schedule_set_id', 'description')
     inlines = [ScheduleInline]
-    search_fields = ('schedule_set_id', 'description')
+
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('schedule_set', 'execution_id', 'time_tag', 'task', 'command')
-    list_filter = ('schedule_set', 'time_tag')
+    list_display = ('schedule_set', 'task','execution_id', 'execution_time')
+    list_filter = ('schedule_set', 'task')
     search_fields = ('execution_id', 'task__task_id', 'command__command_id')

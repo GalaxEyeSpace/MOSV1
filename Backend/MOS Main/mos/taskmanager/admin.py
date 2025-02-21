@@ -11,9 +11,9 @@ class TaskCommandInline(admin.TabularInline):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('task_id', 'priority', 'category', 'status')
+    list_display = ('task_name_optional', 'priority', 'category', 'status', 'duration', 'execution_time')
     inlines = [TimeSlotInline, TaskCommandInline]
-    search_fields = ('task_id', 'category', 'status')
+    search_fields = ('task_name_optional', 'category', 'status')
 
 
 @admin.register(TimeSlot)
@@ -22,6 +22,6 @@ class TimeSlotAdmin(admin.ModelAdmin):
 
 @admin.register(TaskCommand)
 class TaskCommandAdmin(admin.ModelAdmin):
-    list_display = ('task', 'command', 'time_offset')
-    search_fields = ('task__task_id', 'command__command_id')
+    list_display = ('task', 'command', 'time_offset', 'execution_time', 'status')
+    search_fields = ('task__task_name_optional', 'command__command_id')
 
